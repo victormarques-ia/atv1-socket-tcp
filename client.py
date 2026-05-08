@@ -74,6 +74,8 @@ class Client:
         size = int(resp.split()[1])
         content = self._recvall(size)
         dest = dest or filename
+        if os.path.isdir(dest):
+            dest = os.path.join(dest, filename)
         with open(dest, 'wb') as f:
             f.write(content)
         print(f'Download concluído: {filename} → {dest} ({size} bytes)')
